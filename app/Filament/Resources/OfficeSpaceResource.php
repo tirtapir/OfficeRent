@@ -24,6 +24,68 @@ class OfficeSpaceResource extends Resource
         return $form
             ->schema([
                 //
+                Forms\Components\TextInput::make('name')
+                    ->helperText('Masukkan nama kantor')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('address')
+                    ->helperText('Masukkan alamat kantor')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->required(),
+
+                Forms\Components\Textarea::make('about')
+                    ->required()
+                    ->rows(10)
+                    ->cols(20),
+
+                Forms\Components\Repeater::make('photos')
+                    ->relationship('photos')
+                    ->schema([
+                        Forms\Components\FileUpload::make('photo')
+                            ->required(),
+                    ]),
+
+                Forms\Components\Repeater::make('benefits')
+                    ->relationship('benefits')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                    ]),
+
+                Forms\Components\Select::make('city_id')
+                    ->relationship('city', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+
+                Forms\Components\TextInput::make('price')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Rp'),
+
+                Forms\Components\TextInput::make('duration')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Hari'),
+
+                Forms\Components\Select::make('is_opened')
+                    ->options([
+                        true => 'Buka',
+                        false => 'Tutup',
+                    ])
+                    ->required(),
+
+                Forms\Components\Select::make('is_full_booked')
+                    ->options([
+                        true => 'Penuh',
+                        false => 'Tersedia',
+                    ])
+                    ->required(),
             ]);
     }
 
@@ -32,6 +94,21 @@ class OfficeSpaceResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+
+                Tables\Columns\ImageColumn::make('thumbnail'),
+                
+                Tables\Columns\TextColumn::make('city.name'),
+
+                Tables\Columns\BooleanColumn::make('is_full_booked')
+                    ->boolean()
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->trueIcon('heroicon-o-x-circle')
+                    ->falseIcon('heroicon-o-check-circle')
+                    ->label('Available'),                    
+                    
             ])
             ->filters([
                 //

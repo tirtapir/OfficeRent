@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Filters\SelectFilter ;
 
 class CityResource extends Resource
 {
@@ -45,12 +46,16 @@ class CityResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
 
-                Tables\Columns\ImageColumn::make('ph')
+                Tables\Columns\ImageColumn::make('photo')
                 ->size(40),
                     
             ])
             ->filters([
                 //
+                SelectFilter::make('city_id')
+                ->label('City')
+                ->Relationship('city','name'),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
