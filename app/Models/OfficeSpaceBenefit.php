@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illmuinate\Database\Eloquet\SoftDeletes;
+use Illuminate\Database\Eloquet\SoftDeletes;
 
 class OfficeSpaceBenefit extends Model
 {

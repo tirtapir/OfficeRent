@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illmuinate\Database\Eloquent\HasMany;
-use Illmuinate\Database\Eloquent\BelongsTo;
-use Illmuinate\Database\Eloquent\SoftDeletes;
-use Illmuniate\Support\Str;
+use Illuminate\Database\Eloquent\HasMany;
+use Illuminate\Database\Eloquent\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class OfficeSpace extends Model
 {

@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illmuinate\Database\Eloquent\SoftDeletes;
-use Illmuniare\Database\Eloquent\BelongsTo; 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\BelongsTo; 
 
 class BookingTransaction extends Model
 {

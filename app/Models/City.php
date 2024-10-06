@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illmuinate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class City extends Model
@@ -14,7 +14,7 @@ class City extends Model
     protected $fillable = [
         'name',
         'slug',
-        'photo'
+        'photo',
     ];
 
     public function setNameAttribute($value)
