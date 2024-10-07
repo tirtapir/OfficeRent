@@ -47,14 +47,11 @@ class CityResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\ImageColumn::make('photo')
-                ->size(40),
+                    ->size(40),
                     
             ])
             ->filters([
                 //
-                SelectFilter::make('city_id')
-                ->label('City')
-                ->Relationship('city','name'),
 
             ])
             ->actions([

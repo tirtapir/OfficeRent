@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('booking_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('booking_trx');
+            $table->string('booking_trx_id');
             $table->string('name');
             $table->string('phone_number');
             $table->boolean('is_paid');

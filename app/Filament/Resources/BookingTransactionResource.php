@@ -24,6 +24,46 @@ class BookingTransactionResource extends Resource
         return $form
             ->schema([
                 //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('booking_trx_id')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('phone_number')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('total_amount')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Rp'),
+
+                Forms\Components\TextInput::make('duration')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Hari'),
+
+                Forms\Components\DatePicker::make('started_at')
+                    ->required(),
+
+                Forms\Components\DatePicker::make('ended_at')
+                    ->required(),
+
+                Forms\Components\Select::make('is_paid')
+                ->options([
+                    true => 'Lunas',
+                    false => 'Belum Lunas',
+                ])
+                ->required(),
+
+                Forms\Components\Select::make('office_space_id')
+                    ->relationship('OfficeSpace', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
             ]);
     }
 
@@ -32,6 +72,24 @@ class BookingTransactionResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\TextColumn::make('booking_trx_id')
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('office_space.name'),
+                
+                Tables\Columns\TextColumn::make('started_at')
+                    ->date(),
+
+                Tables\Columns\IconColumn::make('is_paid')
+                    ->boolean()
+                    ->trueColor('success')
+                    ->falseColor('danger')
+                    ->trueIcon('heroicon-s-check')
+                    ->falseIcon('heroicon-s-x')
+                    ->label('Sudah Bayar?'),
             ])
             ->filters([
                 //

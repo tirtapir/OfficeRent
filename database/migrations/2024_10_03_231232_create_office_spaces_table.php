@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->text('about');
             $table->foreignId('city_id')->constrained()->casecadeOnDelete();
-            $table->boolean('is_open');
+            $table->boolean('is_opened');
             $table->boolean('is_full_booked');
             $table->unsignedInteger('price');
             $table->unsignedInteger('duration');

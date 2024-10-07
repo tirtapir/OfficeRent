@@ -11,7 +11,7 @@ class OfficeSpacePhoto extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillabel = [
+    protected $fillable = [
         'photo',
         'office_space_id',
     ];
