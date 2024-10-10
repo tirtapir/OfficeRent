@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookingTransactionResource\Pages;
 use App\Filament\Resources\BookingTransactionResource\RelationManagers;
 use App\Models\BookingTransaction;
-use Filament\Forms;
+use Filament\Forms; 
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -88,7 +88,7 @@ class BookingTransactionResource extends Resource
                     ->trueColor('success')
                     ->falseColor('danger')
                     ->trueIcon('heroicon-s-check')
-                    ->falseIcon('heroicon-s-x')
+                    ->falseIcon('heroicon-s-x-circle')
                     ->label('Sudah Bayar?'),
             ])
             ->filters([

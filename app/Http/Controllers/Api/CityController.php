@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\CityResource;
-use App\Models\City; 
+use App\Models\City;
+use App\Models\OfficeSpace;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -13,6 +14,7 @@ class CityController extends Controller
     public function index()
     {
         $cities = City::withCount('officeSpaces')->get();
+        
         return CityResource::collection($cities);
     }
 

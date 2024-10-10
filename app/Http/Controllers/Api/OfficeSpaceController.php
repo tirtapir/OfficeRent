@@ -12,11 +12,11 @@ class OfficeSpaceController extends Controller
     //
     public function index()
     {
-        $officeSpaces = OfficeSpace::with('city')->get();
-        return OfficeSpaceResource::collection($officeSpaces);
+        $officeSpace = OfficeSpace::with('city')->get();
+        return OfficeSpaceResource::collection($officeSpace);
     }
 
-    public function show(OfficeSpace $officeSpaces)
+    public function show(OfficeSpace $officeSpace)
     {
         $officeSpace->load(['city', 'photos', 'benefits']);
         return new OfficeSpaceResource($officeSpace);
