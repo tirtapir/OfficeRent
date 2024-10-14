@@ -48,7 +48,6 @@ class BookingTransactionController extends Controller
 
         $bookingTransaction = BookingTransaction::create($validatedData);
 
-        //mengirim notif melalui sms atau whatsapp dengan twilio
 
         //mengembalikan response
         $bookingTransaction->load('officeSpace');
