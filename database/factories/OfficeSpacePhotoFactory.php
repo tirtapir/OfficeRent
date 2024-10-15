@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\City>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OfficeSpacePhoto>
  */
-class CityFactory extends Factory
+class OfficeSpacePhotoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,8 @@ class CityFactory extends Factory
     {
         return [
             //
-            'name' =>$this->faker->city,
-            'slug' => $this->faker->slug,
-            'photo' => $this->faker->imageUrl,
+            'photo'=> $this->faker->imageUrl,
+            'office_space_id' => \App\Models\OfficeSpace::factory()
         ];
     }
 }

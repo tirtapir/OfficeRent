@@ -19,7 +19,7 @@ class OfficeSpaceFactory extends Factory
         return [
             //
             'name' => $this->faker->company,
-            'thumbanil' => $this->faker->imageUrl(),
+            'thumbnail' => $this->faker->imageUrl(),
             'is_opened' => true,
             'is_full_booked' => false,
             'price' => $this->faker->randomFloat(2,100,1000),

@@ -2,11 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\BookingTransaction;
+use App\Models\City;
+use App\Models\OfficeSpace;
+use App\Models\OfficeSpaceBenefit;
+use App\Models\OfficeSpacePhoto;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Str;  // Import Str class
 
-class UsersTableSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,5 +23,12 @@ class UsersTableSeeder extends Seeder
             'email'    => Str::random(10) . 'tirta@office.com',
             'password' => bcrypt('secret'),
         ]);
+
+        City::factory()->count(2)->create();
+        OfficeSpace::factory()->count(2)->create();
+        OfficeSpacePhoto::factory()->count(2)->create();
+        OfficeSpaceBenefit::factory()->count(2)->create();
+        BookingTransaction::factory()->count(2)->create();
+
     }
 }

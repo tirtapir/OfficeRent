@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d49a462782e72ff4feffe9fb097fadf",
+    "content-hash": "b182e0fc558dcca42f65f5894a05c734",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -9653,16 +9653,56 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "tomasvotruba/phpunit-json-result-printer",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TomasVotruba/phpunit-json-result.git",
+                "reference": "b488ab44ad9865c958d8a8ad43d249f3c635384a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TomasVotruba/phpunit-json-result/zipball/b488ab44ad9865c958d8a8ad43d249f3c635384a",
+                "reference": "b488ab44ad9865c958d8a8ad43d249f3c635384a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "phpunit/phpunit": "^10.5|^11.0"
+            },
+            "require-dev": {
+                "rector/rector": "^0.19.2",
+                "symplify/easy-coding-standard": "^12.1",
+                "tracy/tracy": "^2.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TomasVotruba\\PHPUnitJsonResultPrinter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Print your PHPUnit result in JSON, so other tool can pipe it",
+            "support": {
+                "issues": "https://github.com/TomasVotruba/phpunit-json-result/issues",
+                "source": "https://github.com/TomasVotruba/phpunit-json-result/tree/0.1.2"
+            },
+            "time": "2024-04-10T20:01:13+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
