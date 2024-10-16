@@ -20,7 +20,7 @@ class CityControllerTest extends TestCase
         // $city = City::factory()->create();
         // $city = $city->has(OfficeSpace::factory()->count(3)->create());
         $response = $this->withHeaders([
-            'X-API-KEY' => 'knadnu2nlekni8x7jkl2j3',
+            'X-API-KEY' => 'adkukgi28262eih98209',
         ])->getJson('api/cities');
 
         $response->assertStatus(200)
@@ -31,11 +31,11 @@ class CityControllerTest extends TestCase
                  ]);
     }
 
-    public function test_officeSpace_show_in_city()
+    public function test_it_shows_office_spaces_show_with_city()
     {
         $response = $this->withHeaders([
-            'X-API-KEY' => 'knadnu2nlekni8x7jkl2j3',
-        ])->getJson('api/city/excepturi-repudiandae-maiores-est-laboriosam');
+            'X-API-KEY' => 'adkukgi28262eih98209',
+        ])->getJson('api/city/deserunt-voluptas-animi-dolorum-harum-eum-doloremque');
 
         $response->assertStatus(200)
         ->assertJsonStructure([

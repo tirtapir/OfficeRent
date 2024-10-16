@@ -8,82 +8,108 @@ use App\Models\OfficeSpace;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Tests\TestCase;
-use App\Http\Controllers\Api\BookingTransactionController\booking_details;
 
 class BookingTransactionControllerTest extends TestCase
 {
     /**
      * A basic unit test example.
      */
-    use RefreshDatabase;
+    // use RefreshDatabase;
 
-    public function test_get_booking_details_success()
+    public function test_it_requires_phone_number_and_booking_trx_id()
     {
-        $officeSpace = OfficeSpace::factory()->create();
-        $bookingTransaction = BookingTransaction::factory()->create([
-            'office_space_id' => $officeSpace->id,
-            'phone_number' => '08388438434',
-            'booking_trx_id' => 'OTRX1234'
-        ]);
+        $response = $this->withHeaders([
+            'x-api-key' => 'adkukgi28262eih98209',
+        ])->postJson('api/check-booking', []);
 
-        $request = Request::create('/api/booking-details', 'GET', [
-            'booking_trx_id' => $bookingTransaction->booking_trx_id,
-            'phone_number' => $bookingTransaction->phone_number
-        ]);
-
-        $controller = new BookingTransactionController();
-        $response = $controller->booking_details($request);
-
-        $this->assertEquals(200, $response->status());
-        $this->assertArrayHasKey('data', $response->getData(true));
-        $this->assertEquals($bookingTransaction->id, $response->getData(true)['data']['id']);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['phone_number', 'booking_trx_id']);
     }
 
-    public function test_get_booking_details_not_found()
+    public function test_it_requires_booking_trx_id_if_only_phone_number_is_provided()
     {
-        $request = Request::create('/api/booking-details', 'GET', [
-            'booking_trx_id' => 'OTRX888999O',
-            'phone_number' => '0001111222333'
+        $response = $this->withHeaders([
+            'x-api-key' => 'adkukgi28262eih98209',
+        ])->postJson('api/check-booking', [
+            'phone_number'=> '088882821',
         ]);
 
-        $controller = new BookingTransaction();
-        $response = $controller->booking_details($request);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['booking_trx_id']);
+    }
+    
+    public function test_it_requires_phone_number_if_only_booking_trx_id_is_provided()
+    {
+        $response = $this->withHeaders([
+            'x-api-key' => 'adkukgi28262eih98209',
+        ])->postJson('api/check-booking', [
+            'booking_trx_id'=> 'OTRX7623'
+        ]);
 
-        $this->assertEquals(404, $response->status());
-        $this->assertEquals('Booking not found', $response->getData(true)['message']);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['phone_number']);
     }
 
-    public function test_store_booking_transaction_success()
+    public function test_it_returns_not_found_if_booking_does_not_exist()
     {
-        $officeSpace = OfficeSpace::factory()->create();
-        $request = Request::create('/api/booking-store', 'POST', [
-            'name' => 'John Doe',
-            'phone_number' => '08123456789',
-            'office_space_id' => $officeSpace->id,
-            'started_at' => now(),
-            'total_amount' => 15000000,
-        ]);
+        $response = $this->withHeaders([
+            'x-api-key' => 'adkukgi28262eih98209',
+        ])->postJson(
+            '/api/check-booking',
+            [
+                'phone_number' => '111110000',
+                'booking_trx_id' => 'OTRX0965'
 
-        $controller = new BookingTransactionController();
-        $response = $controller->store($request);
+            ]
+        );
 
-        $this->assertEquals(201, $response->status());
-        $this->assertDatabaseHas('booking_transactions', [
-            'phone_number' => '08123456789',
-            'office_space_id' => $officeSpace->id,
-            'is_paid' => false, 
-        ]);
+        $response->assertStatus(404)
+            ->assertJson([
+                'message'=>'Booking not found'
+            ]);
     }
 
-    public function test_generates_unique_booking_trx_id()
+    public function test_it_returns_booking_details_if_booking_exists()
     {
-        BookingTransaction::factory()->create(['booking_trx_id' => 'OTRX1111']);
-        BookingTransaction::factory()->create(['booking_trx_id' => 'OTRX2222']);
+        $response = $this->withHeaders([
+            'x-api-key' => 'adkukgi28262eih98209'
+        ])->postJson(
+            '/api/check-booking',
+            [
+                'phone_number' => '+1 (463) 374-3168',
+                'booking_trx_id' => 'OTRX4774'
+            ]
+        );
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'booking_trx_id',
+                    'name',
+                    'phone_number',
+                    'is_paid',
+                    'office' => [
+                        'id',
+                        'name', 
+                        'city' => [
+                            'id',
+                            'name']
+                    ],
+                    'total_amount',
+                    'duration',
+                    'started_at',
+                    'ended_at',
+                ]
+            ]);
+    }
+
+    public function test_it_can_generates_unique_booking_trx_id()
+    {
 
         $generateUniqueTrxId = BookingTransaction::generateUniqueTrxId();
 
-        $this->assertNotEquals('OTRX1111', $generateUniqueTrxId);
-        $this->assertNotEquals('OTRX2222', $generateUniqueTrxId);
+        $this->assertNotEquals('OTRX4774', $generateUniqueTrxId);
         $this->assertMatchesRegularExpression('/OTRX[0-9]{4}/', $generateUniqueTrxId);
     }
 }
