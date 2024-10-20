@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
 Route::middleware('api_key')->group(function () {
     
     Route::get('/city/{city:slug}', [CityController::class, 'show']);
-    Route::apiResource('/cities', CityController::class);
+    Route::apiResource('/ci ies', CityController::class);
 
     Route::get('/office/{officeSpace:slug}', [OfficeSpaceController::class, 'show']);
     Route::apiResource('/offices', OfficeSpaceController::class);
