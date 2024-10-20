@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingDetailsRequest;
 use App\Http\Requests\StoreBookingTransactionRequest;
+use App\Http\Requests\UpdateBookingTransactionRequest;
 use App\Http\Resources\Api\BookingTransactionResource as ApiBookingTransactionResource;
 use App\Http\Resources\Api\ViewBookingResource;
 use App\Models\BookingTransaction;
@@ -48,6 +49,32 @@ class BookingTransactionController extends Controller
         //mengembalikan response
         $bookingTransaction->load('officeSpace');
         return new ApiBookingTransactionResource($bookingTransaction);
+    }
+
+    public function update_booking(UpdateBookingTransactionRequest $request, $id)
+    {
+        $booking = BookingTransaction::find($id);
+
+        if(!$booking) {
+            return response()->json(['message' => 'Booking Not found'], 404);
+        }
+
+        $booking->update($request->validated());
+
+        return new ApiBookingTransactionResource($booking->load('officeSpace'));
+    }
+
+    public function cancel_booking($id)
+    {
+        $booking = BookingTransaction::find($id);
+
+        if (!$booking) {
+            return response()->json(['message' => 'Booking not found'], 404);
+        }
+
+        $booking->delete();
+
+        return response()->json(['message' => 'Booking cancelled successfully']);
     }
     
 }
