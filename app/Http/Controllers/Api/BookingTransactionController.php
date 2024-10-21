@@ -60,6 +60,7 @@ class BookingTransactionController extends Controller
         }
 
         $booking->update($request->validated());
+        
 
         return new ApiBookingTransactionResource($booking->load('officeSpace'));
     }
@@ -72,9 +73,11 @@ class BookingTransactionController extends Controller
             return response()->json(['message' => 'Booking not found'], 404);
         }
 
-        $booking->delete();
-
-        return response()->json(['message' => 'Booking cancelled successfully']);
+        if ($booking->delete()) {
+            return response()->json(['message' => 'Booking cancelled successfully']);
+        } else {
+            return response()->json(['message' => 'Failed to cancel booking'], 500);
+        }
     }
     
 }

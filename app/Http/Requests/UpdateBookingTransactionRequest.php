@@ -22,7 +22,7 @@ class UpdateBookingTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // 'id' => 'required',
             'name' => 'required|string|max:255',
             'phone_number' => 'required|string|max:255',
             'started_at' => 'required|date',

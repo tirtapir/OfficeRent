@@ -20,7 +20,7 @@ Route::middleware('api_key')->group(function () {
 
     Route::post('/booking-transaction', [BookingTransactionController::class, 'store']);
     Route::post('/check-booking', [BookingTransactionController::class, 'booking_details']);
-    Route::post('/update-booking', [BookingTransactionController::class, 'update_booking']);
-    Route::post('/cancel-booking', [BookingTransactionController::class, 'cancel_booking']);
+    Route::patch('/update-booking/{id}', [BookingTransactionController::class, 'update_booking']);
+    Route::delete('/cancel-booking/{id}', [BookingTransactionController::class, 'cancel_booking']);
 
 });
