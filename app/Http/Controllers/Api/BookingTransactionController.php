@@ -53,6 +53,7 @@ class BookingTransactionController extends Controller
 
     public function update_booking(UpdateBookingTransactionRequest $request, $id)
     {
+        
         $booking = BookingTransaction::find($id);
 
         if(!$booking) {
@@ -60,7 +61,6 @@ class BookingTransactionController extends Controller
         }
 
         $booking->update($request->validated());
-        
 
         return new ApiBookingTransactionResource($booking->load('officeSpace'));
     }

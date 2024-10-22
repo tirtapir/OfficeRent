@@ -10,9 +10,11 @@ use Illuminate\Http\Request;
 class OfficeSpaceController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $officeSpace = OfficeSpace::with('city')->get();
+        $limit = 6;
+        $page = $request->input('page', 1);
+        $officeSpace = OfficeSpace::with('city')->paginate($limit, ['*'], 'page', $page);
         return OfficeSpaceResource::collection($officeSpace);
     }
 
